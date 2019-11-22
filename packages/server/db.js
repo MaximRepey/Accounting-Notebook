@@ -42,7 +42,9 @@ const createEntityRecord = (entity, data) => {
         return Promise.reject('DB is Locked');
     }
 
+    db.meta.locked = true;
     db.data[entity].push({ ...data, createdAt: new Date() });
+    db.meta.locked = false;
 
     return Promise.resolve();
 };
